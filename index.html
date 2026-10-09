@@ -6,12 +6,12 @@
     <title>Tanish Khurana | Portfolio</title>
     <style>
         :root {
-            --bg-color: #f4f5f7;
-            --text-main: #1f2937;
-            --text-muted: #4b5563;
-            --metal-shelf: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 50%, #64748b 100%);
-            --metal-lip: linear-gradient(180deg, #475569 0%, #334155 100%);
-            --shadow-color: rgba(15, 23, 42, 0.15);
+            --bg-color: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --wood-shelf: #85583b;
+            --wood-shelf-top: #a47148;
+            --metal-frame: #1e293b;
         }
 
         body {
@@ -19,7 +19,7 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
-            padding: 50px 20px 100px 20px;
+            padding: 40px 20px 100px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -32,20 +32,22 @@
 
         /* Bio Header Section */
         .bio-section {
-            margin-bottom: 50px;
+            margin-bottom: 40px;
+            text-align: center;
         }
 
         .logo-icon {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
+            font-size: 2rem;
+            margin-bottom: 10px;
         }
 
         .bio-section h1 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 400;
             line-height: 1.5;
             color: var(--text-muted);
-            margin: 0 0 15px 0;
+            margin: 0 auto 15px auto;
+            max-width: 700px;
         }
 
         .bio-section h1 strong {
@@ -54,130 +56,142 @@
         }
 
         .bio-section p {
-            font-size: 1.1rem;
-            line-height: 1.6;
+            font-size: 1rem;
             color: var(--text-muted);
             margin: 0;
         }
 
-        /* Metal Shelf System */
-        .shelf-section {
-            margin-bottom: 50px;
+        /* Industrial Metal & Wood Shelving Unit */
+        .shelving-unit {
+            position: relative;
+            background: #ffffff;
+            border-radius: 6px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border: 4px solid var(--metal-frame);
+            padding: 20px 30px;
+            box-sizing: border-box;
         }
 
-        .shelf-title {
-            font-size: 1.1rem;
+        /* Vertical Metal Piping Accents on Sides */
+        .shelving-unit::before, .shelving-unit::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 12px;
+            background: linear-gradient(90deg, #475569, #1e293b, #0f172a);
+            z-index: 5;
+        }
+        .shelving-unit::before { left: -12px; border-top-left-radius: 4px; border-bottom-left-radius: 4px; }
+        .shelving-unit::after { right: -12px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; }
+
+        .shelf-tier {
+            margin-bottom: 35px;
+        }
+        .shelf-tier:last-child {
+            margin-bottom: 10px;
+        }
+
+        .tier-header {
+            font-size: 0.85rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #334155;
-            margin-bottom: 15px;
-            border-left: 4px solid #64748b;
-            padding-left: 10px;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 5px;
         }
 
-        .metal-shelf-unit {
-            position: relative;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 8px;
-            padding: 30px 20px 15px 20px;
-            box-shadow: 0 10px 25px var(--shadow-color);
-            border: 1px solid #e2e8f0;
-        }
-
-        /* Records Row */
-        .records-row {
+        /* Row of standing records */
+        .records-track {
             display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            position: relative;
-            z-index: 2;
-            justify-content: flex-start;
+            gap: 12px;
+            align-items: flex-end;
+            min-height: 160px;
+            padding-bottom: 4px;
         }
 
-        /* Individual Record Slot on the Shelf */
+        /* Individual Record Slot */
         .record-slot {
             position: relative;
-            width: 140px;
-            height: 180px;
+            width: 130px;
+            height: 150px;
             cursor: pointer;
-            perspective: 1000px;
         }
 
-        /* The Sleeve that pulls out on hover */
+        /* The Standing Record Sleeve */
         .sleeve {
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 140px;
-            height: 170px;
-            border-radius: 4px;
-            z-index: 3;
+            width: 130px;
+            height: 145px;
+            border-radius: 3px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 12px;
+            padding: 10px;
             box-sizing: border-box;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s ease;
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+            z-index: 2;
         }
 
-        /* Hover effect: Whole sleeve pulls forward/out */
+        /* Hover effect: Whole sleeve slides forward out of the shelf */
         .record-slot:hover .sleeve {
-            transform: translateY(-15px) scale(1.03);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            transform: translateY(-18px) scale(1.04);
+            box-shadow: 4px 12px 20px rgba(0,0,0,0.25);
             z-index: 10;
         }
 
-        /* Active click state: Pulls further out to "play" */
+        /* Active click state */
         .record-slot.active .sleeve {
-            transform: translateY(-40px) scale(1.05);
+            transform: translateY(-35px) scale(1.06);
         }
 
-        /* Sleeve Color Palettes */
+        /* Aesthetic Album Cover Color Variations */
         .sleeve.dark { background: #0f172a; color: #f8fafc; border: 1px solid #334155; }
         .sleeve.slate { background: #334155; color: #f8fafc; border: 1px solid #475569; }
-        .sleeve.light { background: #ffffff; color: #0f172a; border: 1px solid #cbd5e1; }
+        .sleeve.light { background: #f8fafc; color: #0f172a; border: 1px solid #cbd5e1; }
         .sleeve.accent { background: #0284c7; color: #ffffff; border: 1px solid #0369a1; }
         .sleeve.charcoal { background: #1e293b; color: #f8fafc; border: 1px solid #475569; }
+        .sleeve.warm { background: #78350f; color: #fef3c7; border: 1px solid #92400e; }
 
-        .sleeve-top {
+        .sleeve-title {
             font-size: 0.75rem;
             font-weight: 700;
-            letter-spacing: -0.3px;
+            line-height: 1.1;
         }
 
-        .sleeve-center {
-            text-align: center;
-            font-size: 0.75rem;
-            font-weight: 500;
+        .sleeve-subtitle {
+            font-size: 0.65rem;
+            opacity: 0.8;
         }
 
-        .sleeve-bottom {
-            font-size: 0.6rem;
-            opacity: 0.75;
+        .sleeve-year {
+            font-size: 0.55rem;
+            opacity: 0.6;
         }
 
-        /* The Metal Shelf Plate underneath */
-        .metal-shelf-lip {
+        /* The Wooden Shelf Plank underneath each tier */
+        .wood-plank {
             width: 100%;
-            height: 14px;
-            background: var(--metal-shelf);
+            height: 16px;
+            background: var(--wood-shelf);
             border-radius: 2px;
-            margin-top: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
             position: relative;
+            margin-top: 4px;
         }
 
-        .metal-shelf-lip::after {
+        .wood-plank::before {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0; right: 0;
-            height: 3px;
-            background: var(--metal-lip);
-            border-bottom-left-radius: 2px;
-            border-bottom-right-radius: 2px;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: var(--wood-shelf-top);
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
         }
 
         /* Modal Popup ("Turntable / Full View") */
@@ -197,16 +211,16 @@
         .modal-card {
             background: #ffffff;
             color: #0f172a;
-            max-width: 520px;
+            max-width: 500px;
             width: 100%;
-            padding: 35px;
-            border-radius: 12px;
+            padding: 30px;
+            border-radius: 10px;
             position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @keyframes modalPop {
+        @keyframes popIn {
             from { transform: scale(0.95); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
@@ -221,19 +235,19 @@
 
         .close-modal:hover { color: #0f172a; }
 
-        .modal-card h2 { margin-top: 0; font-size: 1.35rem; color: #0f172a; }
-        .modal-card h3 { font-size: 0.95rem; color: #64748b; margin-top: -5px; margin-bottom: 15px; }
-        .modal-card p { line-height: 1.6; color: #334155; font-size: 0.95rem; }
+        .modal-card h2 { margin-top: 0; font-size: 1.3rem; color: #0f172a; }
+        .modal-card h3 { font-size: 0.9rem; color: #64748b; margin-top: -5px; margin-bottom: 15px; }
+        .modal-card p { line-height: 1.6; color: #334155; font-size: 0.9rem; }
         
         .tech-badge {
             display: inline-block;
             background: #f1f5f9;
             color: #334155;
-            padding: 4px 10px;
+            padding: 3px 8px;
             border-radius: 4px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
-            margin-right: 6px;
+            margin-right: 5px;
             margin-bottom: 15px;
             border: 1px solid #e2e8f0;
         }
@@ -242,10 +256,10 @@
             display: inline-block;
             background: #0f172a;
             color: #fff;
-            padding: 10px 18px;
+            padding: 9px 16px;
             border-radius: 6px;
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             margin-top: 15px;
             transition: background 0.2s;
@@ -254,7 +268,7 @@
         .action-btn:hover { background: #334155; }
 
         @media(max-width: 768px) {
-            .records-row { justify-content: center; }
+            .records-track { flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -265,94 +279,94 @@
         <div class="bio-section">
             <div class="logo-icon">🎧</div>
             <h1>I'm <strong>Tanish Khurana</strong>, a developer & data analyst based in Perth, building clean solutions and technical projects.</h1>
-            <p>A random thing about me: I enjoy turning complex data pipelines and analytics challenges into smooth interactive experiences.</p>
+            <p>Browse my record collection below. Hover to inspect, click to play a project or experience.</p>
         </div>
 
-        <!-- SECTION 1: Professional Experience (4 Records) -->
-        <div class="shelf-section">
-            <div class="shelf-title">Professional Experience</div>
-            <div class="metal-shelf-unit">
-                <div class="records-row">
+        <!-- Industrial Metal & Wood Shelving Unit -->
+        <div class="shelving-unit">
+            
+            <!-- TIER 1: Professional Experience (4 Records) -->
+            <div class="shelf-tier">
+                <div class="tier-header">Professional Experience & Milestones</div>
+                <div class="records-track">
                     
                     <!-- Exp 1 -->
-                    <div class="record-slot" onclick="selectItem(this, 'exp1')">
+                    <div class="record-slot" onclick="selectRecord(this, 'exp1')">
                         <div class="sleeve dark">
-                            <div class="sleeve-top">BHP</div>
-                            <div class="sleeve-center">Recruitment Assessment</div>
-                            <div class="sleeve-bottom">2026</div>
+                            <div class="sleeve-title">BHP</div>
+                            <div class="sleeve-subtitle">Recruitment Assessment</div>
+                            <div class="sleeve-year">2026</div>
                         </div>
                     </div>
 
                     <!-- Exp 2 -->
-                    <div class="record-slot" onclick="selectItem(this, 'exp2')">
+                    <div class="record-slot" onclick="selectRecord(this, 'exp2')">
                         <div class="sleeve slate">
-                            <div class="sleeve-top">Telstra</div>
-                            <div class="sleeve-center">Video Interview</div>
-                            <div class="sleeve-bottom">2026</div>
+                            <div class="sleeve-title">Telstra</div>
+                            <div class="sleeve-subtitle">Video Interview</div>
+                            <div class="sleeve-year">2026</div>
                         </div>
                     </div>
 
                     <!-- Exp 3 -->
-                    <div class="record-slot" onclick="selectItem(this, 'exp3')">
+                    <div class="record-slot" onclick="selectRecord(this, 'exp3')">
                         <div class="sleeve light">
-                            <div class="sleeve-top" style="color:#0f172a;">Kmart & Woolworths</div>
-                            <div class="sleeve-center" style="color:#0f172a;">Sapia.ai Chat</div>
-                            <div class="sleeve-bottom" style="color:#64748b;">2026</div>
+                            <div class="sleeve-title" style="color:#0f172a;">Kmart & Woolworths</div>
+                            <div class="sleeve-subtitle" style="color:#475569;">Sapia.ai Chat</div>
+                            <div class="sleeve-year" style="color:#64748b;">2026</div>
                         </div>
                     </div>
 
                     <!-- Exp 4 -->
-                    <div class="record-slot" onclick="selectItem(this, 'exp4')">
+                    <div class="record-slot" onclick="selectRecord(this, 'exp4')">
                         <div class="sleeve accent">
-                            <div class="sleeve-top">Mentoring</div>
-                            <div class="sleeve-center">First Aus Offer</div>
-                            <div class="sleeve-bottom">2026</div>
+                            <div class="sleeve-title">First Aus Offer</div>
+                            <div class="sleeve-subtitle">Job Mentoring</div>
+                            <div class="sleeve-year">2026</div>
                         </div>
                     </div>
 
                 </div>
-                <div class="metal-shelf-lip"></div>
+                <div class="wood-plank"></div>
             </div>
-        </div>
 
-        <!-- SECTION 2: Projects (3 Records) -->
-        <div class="shelf-section">
-            <div class="shelf-title">Featured Projects</div>
-            <div class="metal-shelf-unit">
-                <div class="records-row">
+            <!-- TIER 2: Featured Projects (3 Records) -->
+            <div class="shelf-tier">
+                <div class="tier-header">Featured Projects</div>
+                <div class="records-track">
                     
                     <!-- Proj 1 -->
-                    <div class="record-slot" onclick="selectItem(this, 'proj1')">
-                        <div class="sleeve dark">
-                            <div class="sleeve-top">Cricket Stats</div>
-                            <div class="sleeve-center">Data Analytics</div>
-                            <div class="sleeve-bottom">Python & SQL</div>
+                    <div class="record-slot" onclick="selectRecord(this, 'proj1')">
+                        <div class="sleeve warm">
+                            <div class="sleeve-title">Cricket Stats</div>
+                            <div class="sleeve-subtitle">Data Analytics</div>
+                            <div class="sleeve-year">Python & SQL</div>
                         </div>
                     </div>
 
                     <!-- Proj 2 -->
-                    <div class="record-slot" onclick="selectItem(this, 'proj2')">
+                    <div class="record-slot" onclick="selectRecord(this, 'proj2')">
                         <div class="sleeve charcoal">
-                            <div class="sleeve-top">Web App</div>
-                            <div class="sleeve-center">SQLAlchemy</div>
-                            <div class="sleeve-bottom">Backend</div>
+                            <div class="sleeve-title">Web App</div>
+                            <div class="sleeve-subtitle">SQLAlchemy</div>
+                            <div class="sleeve-year">Backend Architecture</div>
                         </div>
                     </div>
 
                     <!-- Proj 3 -->
-                    <div class="record-slot" onclick="selectItem(this, 'proj3')">
+                    <div class="record-slot" onclick="selectRecord(this, 'proj3')">
                         <div class="sleeve light">
-                            <div class="sleeve-top" style="color:#0f172a;">Pipelines</div>
-                            <div class="sleeve-center">Automation</div>
-                            <div class="sleeve-bottom">Data Cleaning</div>
+                            <div class="sleeve-title" style="color:#0f172a;">Pipelines</div>
+                            <div class="sleeve-subtitle" style="color:#475569;">Automation</div>
+                            <div class="sleeve-year" style="color:#64748b;">Data Cleaning</div>
                         </div>
                     </div>
 
                 </div>
-                <div class="metal-shelf-lip"></div>
+                <div class="wood-plank"></div>
             </div>
-        </div>
 
+        </div>
     </div>
 
     <!-- Detail Modal ("Playing") -->
@@ -368,7 +382,7 @@
             exp1: {
                 title: "BHP",
                 subtitle: "Recruitment Assessment & Video Interview",
-                tech: ["Professional Assessment", "Video Screening", "2026"],
+                tech: ["Professional Assessment", "HireVue", "2026"],
                 description: "Completed structured video interviews and technical assessments through HireVue as part of early career recruitment programs at BHP.",
                 link: "https://github.com/tanish-khurana"
             },
@@ -416,7 +430,7 @@
             }
         };
 
-        function selectItem(element, id) {
+        function selectRecord(element, id) {
             element.classList.add('active');
 
             setTimeout(() => {
