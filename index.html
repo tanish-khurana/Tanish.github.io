@@ -6,10 +6,12 @@
     <title>Tanish Khurana | Portfolio</title>
     <style>
         :root {
-            --bg-color: #f7f7f7;
-            --text-main: #222222;
-            --text-muted: #666666;
-            --accent: #111111;
+            --bg-color: #f4f5f7;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --metal-shelf: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 50%, #64748b 100%);
+            --metal-lip: linear-gradient(180deg, #475569 0%, #334155 100%);
+            --shadow-color: rgba(15, 23, 42, 0.15);
         }
 
         body {
@@ -17,14 +19,14 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
-            padding: 50px 20px 80px 20px;
+            padding: 50px 20px 100px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         .container {
-            max-width: 650px;
+            max-width: 900px;
             width: 100%;
         }
 
@@ -35,7 +37,7 @@
 
         .logo-icon {
             font-size: 1.8rem;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .bio-section h1 {
@@ -43,7 +45,7 @@
             font-weight: 400;
             line-height: 1.5;
             color: var(--text-muted);
-            margin: 0 0 20px 0;
+            margin: 0 0 15px 0;
         }
 
         .bio-section h1 strong {
@@ -52,167 +54,161 @@
         }
 
         .bio-section p {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             line-height: 1.6;
             color: var(--text-muted);
             margin: 0;
         }
 
-        /* Vinyl Crate Container */
-        .crate-wrapper {
+        /* Metal Shelf System */
+        .shelf-section {
+            margin-bottom: 50px;
+        }
+
+        .shelf-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #334155;
+            margin-bottom: 15px;
+            border-left: 4px solid #64748b;
+            padding-left: 10px;
+        }
+
+        .metal-shelf-unit {
             position: relative;
-            width: 100%;
-            background: #b57c4c;
+            background: rgba(255, 255, 255, 0.6);
             border-radius: 8px;
-            padding: 40px 20px 20px 20px;
-            box-shadow: inset 0 10px 20px rgba(0,0,0,0.2), 0 15px 30px rgba(0,0,0,0.1);
-            overflow: hidden;
-            border-bottom: 12px solid #8c5d37;
-            box-sizing: border-box;
+            padding: 30px 20px 15px 20px;
+            box-shadow: 0 10px 25px var(--shadow-color);
+            border: 1px solid #e2e8f0;
         }
 
-        .crate-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(90deg, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.05) 50%);
-            background-size: 40px 100%;
-            pointer-events: none;
-        }
-
+        /* Records Row */
         .records-row {
             display: flex;
-            justify-content: center;
+            flex-wrap: wrap;
             gap: 15px;
             position: relative;
             z-index: 2;
+            justify-content: flex-start;
         }
 
-        /* Individual Record Slot */
+        /* Individual Record Slot on the Shelf */
         .record-slot {
             position: relative;
-            width: 180px;
-            height: 220px;
+            width: 140px;
+            height: 180px;
             cursor: pointer;
+            perspective: 1000px;
         }
 
-        /* The Vinyl Record */
-        .vinyl {
-            position: absolute;
-            top: 20px;
-            left: 10px;
-            width: 160px;
-            height: 160px;
-            background: radial-gradient(circle, #111 30%, #222 31%, #0a0a0a 65%, #1c1c1c 100%);
-            border-radius: 50%;
-            z-index: 1;
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .vinyl::before {
-            content: '';
-            position: absolute;
-            width: 130px;
-            height: 130px;
-            border: 1px dashed rgba(255,255,255,0.07);
-            border-radius: 50%;
-        }
-
-        .vinyl-label {
-            width: 55px;
-            height: 55px;
-            background: #d4af37;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.6rem;
-            font-weight: bold;
-            color: #000;
-        }
-
-        .vinyl-label::after {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #b57c4c;
-            border-radius: 50%;
-        }
-
-        /* Album Sleeve */
+        /* The Sleeve that pulls out on hover */
         .sleeve {
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 180px;
-            height: 180px;
+            width: 140px;
+            height: 170px;
             border-radius: 4px;
             z-index: 3;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 15px;
+            padding: 12px;
             box-sizing: border-box;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s ease;
         }
 
+        /* Hover effect: Whole sleeve pulls forward/out */
         .record-slot:hover .sleeve {
-            transform: translateY(-5px);
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            z-index: 10;
         }
 
-        .record-slot.active .vinyl {
-            transform: translateY(-90px);
+        /* Active click state: Pulls further out to "play" */
+        .record-slot.active .sleeve {
+            transform: translateY(-40px) scale(1.05);
         }
 
-        .sleeve.black { background: #111111; color: #ffffff; border: 1px solid #333; }
-        .sleeve.cream { background: #f0eae1; color: #111111; border: 1px solid #ddd; }
-        .sleeve.blue { background: #1034a6; color: #ffffff; border: 1px solid #0d2882; }
+        /* Sleeve Color Palettes */
+        .sleeve.dark { background: #0f172a; color: #f8fafc; border: 1px solid #334155; }
+        .sleeve.slate { background: #334155; color: #f8fafc; border: 1px solid #475569; }
+        .sleeve.light { background: #ffffff; color: #0f172a; border: 1px solid #cbd5e1; }
+        .sleeve.accent { background: #0284c7; color: #ffffff; border: 1px solid #0369a1; }
+        .sleeve.charcoal { background: #1e293b; color: #f8fafc; border: 1px solid #475569; }
 
         .sleeve-top {
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: -0.5px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
         }
 
         .sleeve-center {
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 500;
         }
 
         .sleeve-bottom {
-            font-size: 0.65rem;
-            opacity: 0.7;
+            font-size: 0.6rem;
+            opacity: 0.75;
         }
 
-        /* Modal Popup */
+        /* The Metal Shelf Plate underneath */
+        .metal-shelf-lip {
+            width: 100%;
+            height: 14px;
+            background: var(--metal-shelf);
+            border-radius: 2px;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .metal-shelf-lip::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0; right: 0;
+            height: 3px;
+            background: var(--metal-lip);
+            border-bottom-left-radius: 2px;
+            border-bottom-right-radius: 2px;
+        }
+
+        /* Modal Popup ("Turntable / Full View") */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(15, 23, 42, 0.75);
             z-index: 100;
             justify-content: center;
             align-items: center;
             padding: 20px;
             box-sizing: border-box;
+            backdrop-filter: blur(4px);
         }
 
         .modal-card {
             background: #ffffff;
-            color: #111;
-            max-width: 500px;
+            color: #0f172a;
+            max-width: 520px;
             width: 100%;
-            padding: 30px;
+            padding: 35px;
             border-radius: 12px;
             position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalPop {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .close-modal {
@@ -220,26 +216,31 @@
             top: 15px; right: 20px;
             background: none; border: none;
             font-size: 1.5rem; cursor: pointer;
-            color: #666;
+            color: #64748b;
         }
 
-        .modal-card h2 { margin-top: 0; font-size: 1.4rem; }
-        .modal-card p { line-height: 1.6; color: #444; }
+        .close-modal:hover { color: #0f172a; }
+
+        .modal-card h2 { margin-top: 0; font-size: 1.35rem; color: #0f172a; }
+        .modal-card h3 { font-size: 0.95rem; color: #64748b; margin-top: -5px; margin-bottom: 15px; }
+        .modal-card p { line-height: 1.6; color: #334155; font-size: 0.95rem; }
         
         .tech-badge {
             display: inline-block;
-            background: #eee;
+            background: #f1f5f9;
+            color: #334155;
             padding: 4px 10px;
             border-radius: 4px;
             font-size: 0.75rem;
             font-weight: 600;
             margin-right: 6px;
             margin-bottom: 15px;
+            border: 1px solid #e2e8f0;
         }
 
-        .github-btn {
+        .action-btn {
             display: inline-block;
-            background: #111;
+            background: #0f172a;
             color: #fff;
             padding: 10px 18px;
             border-radius: 6px;
@@ -247,11 +248,13 @@
             font-size: 0.85rem;
             font-weight: 600;
             margin-top: 15px;
+            transition: background 0.2s;
         }
 
-        @media(max-width: 600px) {
-            .records-row { flex-direction: column; align-items: center; }
-            .crate-wrapper { padding-top: 20px; }
+        .action-btn:hover { background: #334155; }
+
+        @media(max-width: 768px) {
+            .records-row { justify-content: center; }
         }
     </style>
 </head>
@@ -265,52 +268,95 @@
             <p>A random thing about me: I enjoy turning complex data pipelines and analytics challenges into smooth interactive experiences.</p>
         </div>
 
-        <!-- Vinyl Record Crate Widget -->
-        <div class="crate-wrapper">
-            <div class="records-row">
-                
-                <!-- Record 1 -->
-                <div class="record-slot" onclick="selectRecord(this, 'project1')">
-                    <div class="vinyl">
-                        <div class="vinyl-label">DATA</div>
+        <!-- SECTION 1: Professional Experience (4 Records) -->
+        <div class="shelf-section">
+            <div class="shelf-title">Professional Experience</div>
+            <div class="metal-shelf-unit">
+                <div class="records-row">
+                    
+                    <!-- Exp 1 -->
+                    <div class="record-slot" onclick="selectItem(this, 'exp1')">
+                        <div class="sleeve dark">
+                            <div class="sleeve-top">BHP</div>
+                            <div class="sleeve-center">Recruitment Assessment</div>
+                            <div class="sleeve-bottom">2026</div>
+                        </div>
                     </div>
-                    <div class="sleeve black">
-                        <div class="sleeve-top">Cricket Stats</div>
-                        <div class="sleeve-center">Analytics</div>
-                        <div class="sleeve-bottom">2024–2026</div>
-                    </div>
-                </div>
 
-                <!-- Record 2 -->
-                <div class="record-slot" onclick="selectRecord(this, 'project2')">
-                    <div class="vinyl">
-                        <div class="vinyl-label">BACK</div>
+                    <!-- Exp 2 -->
+                    <div class="record-slot" onclick="selectItem(this, 'exp2')">
+                        <div class="sleeve slate">
+                            <div class="sleeve-top">Telstra</div>
+                            <div class="sleeve-center">Video Interview</div>
+                            <div class="sleeve-bottom">2026</div>
+                        </div>
                     </div>
-                    <div class="sleeve cream">
-                        <div class="sleeve-top" style="color:#000;">Web App</div>
-                        <div class="sleeve-center" style="color:#000;">SQLAlchemy</div>
-                        <div class="sleeve-bottom" style="color:#666;">Backend</div>
-                    </div>
-                </div>
 
-                <!-- Record 3 -->
-                <div class="record-slot" onclick="selectRecord(this, 'project3')">
-                    <div class="vinyl">
-                        <div class="vinyl-label">AUTO</div>
+                    <!-- Exp 3 -->
+                    <div class="record-slot" onclick="selectItem(this, 'exp3')">
+                        <div class="sleeve light">
+                            <div class="sleeve-top" style="color:#0f172a;">Kmart & Woolworths</div>
+                            <div class="sleeve-center" style="color:#0f172a;">Sapia.ai Chat</div>
+                            <div class="sleeve-bottom" style="color:#64748b;">2026</div>
+                        </div>
                     </div>
-                    <div class="sleeve blue">
-                        <div class="sleeve-top">Pipelines</div>
-                        <div class="sleeve-center">Python Scripts</div>
-                        <div class="sleeve-bottom">Automation</div>
-                    </div>
-                </div>
 
+                    <!-- Exp 4 -->
+                    <div class="record-slot" onclick="selectItem(this, 'exp4')">
+                        <div class="sleeve accent">
+                            <div class="sleeve-top">Mentoring</div>
+                            <div class="sleeve-center">First Aus Offer</div>
+                            <div class="sleeve-bottom">2026</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="metal-shelf-lip"></div>
             </div>
         </div>
+
+        <!-- SECTION 2: Projects (3 Records) -->
+        <div class="shelf-section">
+            <div class="shelf-title">Featured Projects</div>
+            <div class="metal-shelf-unit">
+                <div class="records-row">
+                    
+                    <!-- Proj 1 -->
+                    <div class="record-slot" onclick="selectItem(this, 'proj1')">
+                        <div class="sleeve dark">
+                            <div class="sleeve-top">Cricket Stats</div>
+                            <div class="sleeve-center">Data Analytics</div>
+                            <div class="sleeve-bottom">Python & SQL</div>
+                        </div>
+                    </div>
+
+                    <!-- Proj 2 -->
+                    <div class="record-slot" onclick="selectItem(this, 'proj2')">
+                        <div class="sleeve charcoal">
+                            <div class="sleeve-top">Web App</div>
+                            <div class="sleeve-center">SQLAlchemy</div>
+                            <div class="sleeve-bottom">Backend</div>
+                        </div>
+                    </div>
+
+                    <!-- Proj 3 -->
+                    <div class="record-slot" onclick="selectItem(this, 'proj3')">
+                        <div class="sleeve light">
+                            <div class="sleeve-top" style="color:#0f172a;">Pipelines</div>
+                            <div class="sleeve-center">Automation</div>
+                            <div class="sleeve-bottom">Data Cleaning</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="metal-shelf-lip"></div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Project Detail Modal -->
-    <div id="projectModal" class="modal" onclick="closeModalOutside(event)">
+    <!-- Detail Modal ("Playing") -->
+    <div id="detailModal" class="modal" onclick="closeModalOutside(event)">
         <div class="modal-card">
             <button class="close-modal" onclick="closeModal()">&times;</button>
             <div id="modalContent"></div>
@@ -318,52 +364,84 @@
     </div>
 
     <script>
-        const projectDatabase = {
-            project1: {
+        const database = {
+            exp1: {
+                title: "BHP",
+                subtitle: "Recruitment Assessment & Video Interview",
+                tech: ["Professional Assessment", "Video Screening", "2026"],
+                description: "Completed structured video interviews and technical assessments through HireVue as part of early career recruitment programs at BHP.",
+                link: "https://github.com/tanish-khurana"
+            },
+            exp2: {
+                title: "Telstra",
+                subtitle: "Assessment Program",
+                tech: ["HireVue", "Analytical Evaluation", "2026"],
+                description: "Successfully navigated interactive video interview assessments and role evaluations for technical graduate recruitment streams.",
+                link: "https://github.com/tanish-khurana"
+            },
+            exp3: {
+                title: "Kmart & Woolworths",
+                subtitle: "Interactive Chat Interviews",
+                tech: ["Sapia.ai", "AI Screening", "Retail Operations"],
+                description: "Completed asynchronous conversational AI assessments and interactive chat evaluations for customer and retail positions.",
+                link: "https://github.com/tanish-khurana"
+            },
+            exp4: {
+                title: "My First Australian Offer",
+                subtitle: "Job Search Mentoring Program",
+                tech: ["Career Development", "Networking", "2026"],
+                description: "Joined specialized professional mentoring programs in May 2026 to refine Australian job search methodologies and corporate readiness.",
+                link: "https://github.com/tanish-khurana"
+            },
+            proj1: {
                 title: "Cricket Match Data Analytics",
+                subtitle: "Data Analytics & Reporting Pipeline",
                 tech: ["Python", "SQL", "Pandas", "Subqueries"],
                 description: "Engineered robust data querying and aggregation pipelines to process cricket match datasets. Cleaned metrics and built reporting scripts to analyze game statistics.",
-                link: "https://github.com/your-username"
+                link: "https://github.com/tanish-khurana"
             },
-            project2: {
+            proj2: {
                 title: "Web Application Backend",
-                tech: ["Python", "SQLAlchemy", "Database Architecture"],
+                subtitle: "Database Architecture",
+                tech: ["Python", "SQLAlchemy", "Database Design"],
                 description: "Developed scalable backend services using SQLAlchemy for structured database queries, robust data tracking, and seamless integration.",
-                link: "https://github.com/your-username"
+                link: "https://github.com/tanish-khurana"
             },
-            project3: {
+            proj3: {
                 title: "Automated Data Transformation Pipeline",
-                tech: ["Python", "Automation", "Data Cleaning"],
+                subtitle: "Automation & Scripting",
+                tech: ["Python", "Data Transformation", "Reporting"],
                 description: "Created automated execution scripts that ingest raw messy data files, clean format anomalies, and organize structured outputs efficiently.",
-                link: "https://github.com/your-username"
+                link: "https://github.com/tanish-khurana"
             }
         };
 
-        function selectRecord(element, projectId) {
+        function selectItem(element, id) {
             element.classList.add('active');
 
             setTimeout(() => {
-                const data = projectDatabase[projectId];
+                const data = database[id];
                 const badges = data.tech.map(t => `<span class="tech-badge">${t}</span>`).join('');
                 
                 document.getElementById('modalContent').innerHTML = `
                     <h2>${data.title}</h2>
+                    <h3>${data.subtitle}</h3>
                     <div>${badges}</div>
                     <p>${data.description}</p>
-                    <a href="${data.link}" target="_blank" class="github-btn">View Code on GitHub</a>
+                    <a href="${data.link}" target="_blank" class="action-btn">View Profile / Code</a>
                 `;
 
-                document.getElementById('projectModal').style.display = 'flex';
+                document.getElementById('detailModal').style.display = 'flex';
                 element.classList.remove('active');
-            }, 450);
+            }, 300);
         }
 
         function closeModal() {
-            document.getElementById('projectModal').style.display = 'none';
+            document.getElementById('detailModal').style.display = 'none';
         }
 
         function closeModalOutside(event) {
-            if (event.target.id === 'projectModal') {
+            if (event.target.id === 'detailModal') {
                 closeModal();
             }
         }
