@@ -3,24 +3,355 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>Tanish Khurana | Vinyl Record Portfolio</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
-        h1 { color: #0066cc; }
-        .project { background: #f4f4f4; padding: 15px; margin-bottom: 15px; border-radius: 5px; }
+        :root {
+            --bg-color: #121212;
+            --sleeve-bg: #1e1e1e;
+            --sleeve-border: #333;
+            --accent-gold: #d4af37;
+            --text-light: #f0f0f0;
+            --text-muted: #aaaaaa;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            letter-spacing: 2px;
+            color: var(--text-light);
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        /* Record Crate / Container */
+        .crate-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        /* Record Sleeve (The card holder) */
+        .record-sleeve {
+            position: relative;
+            width: 260px;
+            height: 260px;
+            background: var(--sleeve-bg);
+            border: 2px solid var(--sleeve-border);
+            border-radius: 6px;
+            cursor: pointer;
+            overflow: visible;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .record-sleeve:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-gold);
+        }
+
+        /* Project Heading Label on top of Sleeve */
+        .sleeve-label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.85);
+            border-bottom: 1px solid var(--sleeve-border);
+            padding: 10px 15px;
+            z-index: 3;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        .sleeve-label h3 {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--accent-gold);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .sleeve-label span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* The Vinyl Record hidden inside */
+        .vinyl-record {
+            position: absolute;
+            top: 20px;
+            right: 10px;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, #111 30%, #222 31%, #050505 60%, #1a1a1a 100%);
+            border-radius: 50%;
+            z-index: 1;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Vinyl Grooves effect */
+        .vinyl-record::before {
+            content: '';
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border: 1px dashed rgba(255,255,255,0.08);
+            border-radius: 50%;
+        }
+
+        /* Record Center Label */
+        .record-center {
+            width: 80px;
+            height: 80px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: bold;
+            font-size: 0.7rem;
+            text-align: center;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        .record-center::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--bg-color);
+            border-radius: 50%;
+        }
+
+        /* Pull-out animation state when clicked */
+        .record-sleeve.active .vinyl-record {
+            transform: translateX(-140px);
+        }
+
+        /* Modal Overlay for Full Project View ("Playing") */
+        .player-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-content {
+            background: var(--sleeve-bg);
+            border: 1px solid var(--accent-gold);
+            border-radius: 8px;
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: var(--text-light);
+        }
+
+        .modal-content h2 {
+            color: var(--accent-gold);
+            margin-top: 0;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            background: #2a2a2a;
+            color: var(--accent-gold);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            margin-bottom: 10px;
+        }
+
+        .project-links {
+            margin-top: 25px;
+        }
+
+        .project-links a {
+            background: var(--accent-gold);
+            color: #000;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+
+        .project-links a:hover {
+            opacity: 0.9;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
     </style>
 </head>
 <body>
-    <h1>Hello, I'm Tanish</h1>
-    <p>Welcome to my professional portfolio showcasing my data analytics and technical projects.</p>
 
-    <h2>Featured Projects</h2>
-    <div class="project">
-        <h3>Project Name</h3>
-        <p>Short description of what the project does and the tech stack used (e.g., Python, SQL).</p>
+    <header>
+        <h1>Tanish Khurana</h1>
+        <p>Select a record from the crate to spin up a project</p>
+    </header>
+
+    <!-- Vinyl Crate -->
+    <div class="crate-container">
+        
+        <!-- Record 1 -->
+        <div class="record-sleeve" onclick="openProject('project1')">
+            <div class="sleeve-label">
+                <h3>Cricket Data Analytics</h3>
+                <span>Python • SQL • Pandas</span>
+            </div>
+            <div class="vinyl-record">
+                <div class="record-center">SIDE A</div>
+            </div>
+        </div>
+
+        <!-- Record 2 -->
+        <div class="record-sleeve" onclick="openProject('project2')">
+            <div class="sleeve-label">
+                <h3>Web App Backend</h3>
+                <span>Python • SQLAlchemy</span>
+            </div>
+            <div class="vinyl-record">
+                <div class="record-center">SIDE B</div>
+            </div>
+        </div>
+
+        <!-- Record 3 -->
+        <div class="record-sleeve" onclick="openProject('project3')">
+            <div class="sleeve-label">
+                <h3>Data Pipeline Script</h3>
+                <span>Python • Automation</span>
+            </div>
+            <div class="vinyl-record">
+                <div class="record-center">LP 03</div>
+            </div>
+        </div>
+
     </div>
 
-    <h2>Contact</h2>
-    <p>Find me on <a href="https://github.com/your-username">GitHub</a>.</p>
+    <!-- Project Full View Modal ("Turntable Player") -->
+    <div id="projectModal" class="player-modal" onclick="closeOnOutside(event)">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeProject()">&times;</button>
+            <div id="modalBody">
+                <!-- Dynamic Content Loaded Here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Database of your project details
+        const projectsData = {
+            project1: {
+                title: "Cricket Match Data Analytics",
+                tech: ["Python", "SQL", "Pandas", "Subqueries"],
+                description: "Built advanced data querying and aggregation pipelines to analyze cricket match statistics. Cleaned, transformed, and reported dataset trends using custom Python scripts and SQL subqueries.",
+                github: "https://github.com/your-username"
+            },
+            project2: {
+                title: "Web Application Backend",
+                tech: ["Python", "SQLAlchemy", "Database Design"],
+                description: "Developed a robust backend architecture utilizing SQLAlchemy for seamless database management, queries, and data integrity tracking.",
+                github: "https://github.com/your-username"
+            },
+            project3: {
+                title: "Automated Data Processing Pipeline",
+                tech: ["Python", "Data Transformation"],
+                description: "Engineered automated scripts designed to ingest raw data, clean formatting inconsistencies, and generate structured reporting dashboards.",
+                github: "https://github.com/your-username"
+            }
+        };
+
+        function openProject(projectId) {
+            const sleeve = event.currentTarget;
+            sleeve.classList.add('active');
+
+            setTimeout(() => {
+                const data = projectsData[projectId];
+                let tagsHTML = data.tech.map(t => `<span class="tech-tag">${t}</span>`).join('');
+                
+                document.getElementById('modalBody').innerHTML = `
+                    <h2>${data.title}</h2>
+                    <div>${tagsHTML}</div>
+                    <p style="line-height: 1.6; color: #ccc; margin-top: 15px;">${data.description}</p>
+                    <div class="project-links">
+                        <a href="${data.github}" target="_blank">View Code on GitHub</a>
+                    </div>
+                `;
+                
+                document.getElementById('projectModal').style.display = 'flex';
+                sleeve.classList.remove('active');
+            }, 400); // Matches sliding animation timing
+        }
+
+        function closeProject() {
+            document.getElementById('projectModal').style.display = 'none';
+        }
+
+        function closeOnOutside(event) {
+            if (event.target.id === 'projectModal') {
+                closeProject();
+            }
+        }
+    </script>
+
 </body>
 </html>
