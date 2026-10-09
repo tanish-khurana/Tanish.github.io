@@ -3,77 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanish Khurana | Vinyl Record Portfolio</title>
+    <title>Tanish Khurana | Portfolio</title>
     <style>
         :root {
-            --bg-color: #121212;
-            --sleeve-bg: #1e1e1e;
-            --sleeve-border: #333;
-            --accent-gold: #d4af37;
-            --text-light: #f0f0f0;
-            --text-muted: #aaaaaa;
+            --bg-color: #f7f7f7;
+            --text-main: #222222;
+            --text-muted: #666666;
+            --accent: #111111;
         }
 
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-light);
+            color: var(--text-main);
             margin: 0;
-            padding: 40px 20px;
+            padding: 40px 20px 80px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin: 0 0 10px 0;
-            letter-spacing: 2px;
-            color: var(--text-light);
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin: 0;
-        }
-
-        /* Record Crate / Container */
-        .crate-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            max-width: 1000px;
+        .container {
+            max-width: 650px;
             width: 100%;
         }
 
-        /* Record Sleeve (The card holder) */
-        .record-sleeve {
+        /* Bio Header Section */
+        .bio-section {
+            margin-bottom: 50px;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .bio-section h1 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--text-muted);
+            margin: 0 0 20px 0;
+        }
+
+        .bio-section h1 strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .bio-section p {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Vinyl Crate Container */
+        .crate-wrapper {
             position: relative;
-            width: 260px;
-            height: 260px;
-            background: var(--sleeve-bg);
-            border: 2px solid var(--sleeve-border);
-            border-radius: 6px;
+            width: 100%;
+            background: #b57c4c; /* Wooden crate tone base */
+            border-radius: 8px;
+            padding: 40px 20px 20px 20px;
+            box-shadow: inset 0 10px 20px rgba(0,0,0,0.2), 0 15px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border-bottom: 12px solid #8c5d37;
+        }
+
+        /* Wooden texture lines */
+        .crate-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.05) 50%);
+            background-size: 40px 100%;
+            pointer-events: none;
+        }
+
+        .records-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Individual Record Slot */
+        .record-slot {
+            position: relative;
+            width: 180px;
+            height: 220px;
             cursor: pointer;
-            overflow: visible;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
-        .record-sleeve:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent-gold);
+        /* The Vinyl Record hidden behind/inside the sleeve */
+        .vinyl {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            width: 160px;
+            height: 160px;
+            background: radial-gradient(circle, #111 30%, #222 31%, #0a0a0a 65%, #1c1c1c 100%);
+            border-radius: 50%;
+            z-index: 1;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Project Heading Label on top of Sleeve */
+        /* Record grooves */
+        .vinyl::before {
+            content: '';
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            border: 1px dashed rgba(255,255,255,0.07);
+            border-radius: 50%;
+        }
+
+        .vinyl-label {
+            width: 55px;
+            height: 55px;
+            background: #d4af37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .vinyl-label::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #b57c4c;
+            border-radius: 50%;
+        }
+
+        /* Album Sleeve (Sits on top of the vinyl) */
+        .sleeve {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 180px;
+            height: 180px;
+            border-radius: 4px;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 15px;
+            box-sizing: border-box;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .record-slot:hover .sleeve {
+            transform: translateY(-5px);
+        }
+
+        /* Pull record up on click animation */
+        .record-slot.active .vinyl {
+            transform: translateY(-90px);
+        }
+
+        /* Sleeve Color Themes */
+        .sleeve.black { background: #111111; color: #ffffff; border: 1px solid #333; }
+        .sleeve.cream { background: #f0eae1; color: #111111; border: 1px solid #ddd; }
+        .sleeve.blue { background: #1034a6; color: #ffffff; border: 1px solid #0d2882; }
+
+        .sleeve-top {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .sleeve-center {
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .sleeve-bottom {
+            font-size: 0.65rem;
+            opacity: 0.7;
+        }
+
+        /* Modal Popup for Project View */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-card {
+            background: #ffffff;
+            color: #111;
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 20px;
+            background: none; border: none;
+            font-size: 1.5rem; cursor: pointer;
+            color: #666;
+        }
+
+        .modal-card h2 { margin-top: 0; font-size: 1.4rem; }
+        .modal-card p { line-height: 1.6; color: #444; }
+        .tech-badge {
+            display: inline-block;
+            background: #eee;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 6px;
+            margin-bottom: 15px;
+        }
+        .github-btn {
+            display: inline-block;
+            background: #111;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        /* Responsive adjustments for mobile */
+        @media(max-width: 600px) {
+            .records-row { flex-direction: column; align-items: center; }
+            .crate-wrapper { padding-top: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Bio Header Match -->
+        <div class="bio-section">
+            <div class="logo-icon">🎧</div>
+            <h1>I'm <strong>Tanish Khurana</strong>, a developer & data analyst based in Perth, building clean solutions and technical projects.</h1>
+            <p>A random thing about me: I enjoy turning complex data pipelines and analytics challenges into smooth interactive experiences.</p>
+        </div>
+
+        <!-- Vinyl Record Crate Widget -->
+        <div class="crate-wrapper">
+            <div class="records-row">
+                
+                <!-- Record 1: Black Sleeve -->
+                <div class="record-slot" onclick="selectRecord(this, 'project1')">
+                    <div class="vinyl">
+                        <div class="vinyl-label">DATA</div>
+                    </div>
+                    <div class="sleeve black">
+                        <div class="sleeve-top">Cricket Stats</div>
+                        <div class="sleeve-center">Analytics</div>
+                        <div class="sleeve-bottom">2024–2026</div>
+                    </div>
+                </div>
+
+                <!-- Record 2: Cream Sleeve -->
+                <div class="record-slot" onclick="selectRecord(this, 'project2')">
+                    <div class="vinyl">
+                        <div class="vinyl-label">BACK</div>
+                    </div>
+                    <div class="sleeve cream">
+                        <div class="sleeve-top" style="color:#000;">Web App</div>
+                        <div class="sleeve-center" style="color:#000;">SQLAlchemy</div>
+                        <div class="sleeve-bottom" style="color:#666;">Backend</div>
+                    </div>
+                </div>
+
+                <!-- Record 3: Blue Sleeve -->
+                <div class="record-slot" onclick="selectRecord(this, 'project3')">
+                    <div class="vinyl">
+                        <div class="vinyl-label">AUTO</div>
+                    </div>
+                    <div class="sleeve blue">
+                        <div class="sleeve-top">Pipelines</div>
+                        <div class="sleeve-center">Python Scripts</div>
+                        <div class="sleeve-bottom">Automation</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Detail Modal -->
+    <div id="projectModal" class="modal" onclick="closeModalOutside(event)">
+        <div class="modal-card">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <div id="modalContent">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const projectDatabase = {
+            project1: {
+                title: "Cricket Match Data Analytics",
+                tech: ["Python", "SQL", "Pandas", "Subqueries"],
+                description: "Engineered robust data querying and aggregation pipelines to process cricket match datasets. Cleaned metrics and built reporting scripts to analyze game statistics.",
+                link: "https://github.com/your-username"
+            },
+            project2: {
+                title: "Web Application Backend",
+                tech: ["Python", "SQLAlchemy", "Database Architecture"],
+                description: "Developed scalable backend services using SQLAlchemy for structured database queries, robust data tracking, and seamless integration.",
+                link: "https://github.com/your-username"
+            },
+            project3: {
+                title: "Automated Data Transformation Pipeline",
+                tech: ["Python", "Automation", "Data Cleaning"],
+                description: "Created automated execution scripts that ingest raw messy data files, clean format anomalies, and organize structured outputs efficiently.",
+                link: "https://github.com/your-username"
+            }
+        };
+
+        function selectRecord(element, projectId) {
+            // Trigger visual slide-out animation
+            element.classList.add('active');
+
+            setTimeout(() => {
+                const data = projectDatabase[projectId];
+                const badges = data.tech.map(t => `<span class="tech-badge">${t}</span>`).join('');
+                
+                document.getElementById('modalContent').innerHTML = `
+                    <h2>${data.title}</h2>
+                    <div>${badges}</div>
+                    <p>${data.description}</p>
+                    <a href="${data.link}" target="_blank" class="github-btn">View Code on GitHub</a>
+                `;
+
+                document.getElementById('projectModal').style.display = 'flex';
+                element.classList.remove('active');
+            }, 450); // Matches transition duration
+        }
+
+        function closeModal() {
+            document.getElementById('projectModal').style.display = 'none';
+        }
+
+        function closeModalOutside(event) {
+            if (event.target.id === 'projectModal') {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>        /* Project Heading Label on top of Sleeve */
         .sleeve-label {
             position: absolute;
             top: 0;
