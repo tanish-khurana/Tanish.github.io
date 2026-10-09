@@ -26,7 +26,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 950px;
             width: 100%;
         }
 
@@ -61,95 +61,102 @@
             margin: 0;
         }
 
-        /* Industrial Metal & Wood Shelving Unit */
-        .shelving-unit {
-            position: relative;
+        /* Industrial Shelving Unit Wrapper with Multi-Bay Columns */
+        .industrial-unit {
             background: #ffffff;
-            border-radius: 6px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-            border: 4px solid var(--metal-frame);
-            padding: 20px 30px;
+            border-radius: 4px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            border: 5px solid var(--metal-frame);
+            padding: 20px 15px;
             box-sizing: border-box;
+            display: grid;
+            grid-template-columns: 1fr 16px 1fr;
+            gap: 0;
+            position: relative;
         }
 
-        /* Vertical Metal Piping Accents on Sides */
-        .shelving-unit::before, .shelving-unit::after {
+        .industrial-unit::before, .industrial-unit::after {
             content: '';
             position: absolute;
             top: 0; bottom: 0;
-            width: 12px;
+            width: 14px;
             background: linear-gradient(90deg, #475569, #1e293b, #0f172a);
+            z-index: 10;
+        }
+        .industrial-unit::before { left: -14px; border-top-left-radius: 4px; border-bottom-left-radius: 4px; }
+        .industrial-unit::after { right: -14px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; }
+
+        .center-pipe-column {
+            background: linear-gradient(90deg, #334155, #1e293b, #0f172a);
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+            position: relative;
             z-index: 5;
         }
-        .shelving-unit::before { left: -12px; border-top-left-radius: 4px; border-bottom-left-radius: 4px; }
-        .shelving-unit::after { right: -12px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; }
 
-        .shelf-tier {
-            margin-bottom: 35px;
-        }
-        .shelf-tier:last-child {
-            margin-bottom: 10px;
+        .shelf-bay {
+            padding: 10px 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .tier-header {
-            font-size: 0.85rem;
+        .bay-header {
+            font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.2px;
             color: var(--text-muted);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             border-bottom: 1px solid #e2e8f0;
             padding-bottom: 5px;
         }
 
-        /* Row of standing records */
+        /* Packed Row of Standing Records */
         .records-track {
             display: flex;
-            gap: 12px;
+            gap: 6px; /* Tightly packed like the reference image */
             align-items: flex-end;
-            min-height: 160px;
-            padding-bottom: 4px;
+            min-height: 155px;
+            padding-bottom: 2px;
         }
 
-        /* Individual Record Slot */
         .record-slot {
             position: relative;
-            width: 130px;
-            height: 150px;
+            width: 105px;
+            height: 140px;
             cursor: pointer;
         }
 
-        /* The Standing Record Sleeve */
         .sleeve {
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 130px;
-            height: 145px;
-            border-radius: 3px;
+            width: 105px;
+            height: 135px;
+            border-radius: 2px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 10px;
+            padding: 8px;
             box-sizing: border-box;
-            box-shadow: 2px 4px 10px rgba(0,0,0,0.15);
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
             transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
             z-index: 2;
         }
 
-        /* Hover effect: Whole sleeve slides forward out of the shelf */
         .record-slot:hover .sleeve {
-            transform: translateY(-18px) scale(1.04);
-            box-shadow: 4px 12px 20px rgba(0,0,0,0.25);
-            z-index: 10;
+            transform: translateY(-18px) scale(1.06);
+            box-shadow: 4px 14px 22px rgba(0,0,0,0.35);
+            z-index: 20;
         }
 
-        /* Active click state */
         .record-slot.active .sleeve {
-            transform: translateY(-35px) scale(1.06);
+            transform: translateY(-35px) scale(1.08);
         }
 
-        /* Aesthetic Album Cover Color Variations */
+        /* Color Themes */
         .sleeve.dark { background: #0f172a; color: #f8fafc; border: 1px solid #334155; }
         .sleeve.slate { background: #334155; color: #f8fafc; border: 1px solid #475569; }
         .sleeve.light { background: #f8fafc; color: #0f172a; border: 1px solid #cbd5e1; }
@@ -158,43 +165,42 @@
         .sleeve.warm { background: #78350f; color: #fef3c7; border: 1px solid #92400e; }
 
         .sleeve-title {
-            font-size: 0.75rem;
+            font-size: 0.68rem;
             font-weight: 700;
             line-height: 1.1;
         }
 
         .sleeve-subtitle {
-            font-size: 0.65rem;
+            font-size: 0.58rem;
             opacity: 0.8;
         }
 
         .sleeve-year {
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             opacity: 0.6;
         }
 
-        /* The Wooden Shelf Plank underneath each tier */
         .wood-plank {
             width: 100%;
-            height: 16px;
+            height: 14px;
             background: var(--wood-shelf);
             border-radius: 2px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
             position: relative;
-            margin-top: 4px;
+            margin-top: 15px;
         }
 
         .wood-plank::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
-            height: 4px;
+            height: 3px;
             background: var(--wood-shelf-top);
             border-top-left-radius: 2px;
             border-top-right-radius: 2px;
         }
 
-        /* Modal Popup ("Turntable / Full View") */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -268,6 +274,8 @@
         .action-btn:hover { background: #334155; }
 
         @media(max-width: 768px) {
+            .industrial-unit { grid-template-columns: 1fr; }
+            .center-pipe-column { display: none; }
             .records-track { flex-wrap: wrap; }
         }
     </style>
@@ -279,89 +287,89 @@
         <div class="bio-section">
             <div class="logo-icon">🎧</div>
             <h1>I'm <strong>Tanish Khurana</strong>, a developer & data analyst based in Perth, building clean solutions and technical projects.</h1>
-            <p>Browse my record collection below. Hover to inspect, click to play a project or experience.</p>
+            <p>Explore my record collection across the industrial metal shelves. Hover to inspect, click to play.</p>
         </div>
 
-        <!-- Industrial Metal & Wood Shelving Unit -->
-        <div class="shelving-unit">
+        <!-- Industrial Shelving Unit -->
+        <div class="industrial-unit">
             
-            <!-- TIER 1: Professional Experience (4 Records) -->
-            <div class="shelf-tier">
-                <div class="tier-header">Professional Experience & Milestones</div>
-                <div class="records-track">
-                    
-                    <!-- Exp 1 -->
-                    <div class="record-slot" onclick="selectRecord(this, 'exp1')">
-                        <div class="sleeve dark">
-                            <div class="sleeve-title">BHP</div>
-                            <div class="sleeve-subtitle">Recruitment Assessment</div>
-                            <div class="sleeve-year">2026</div>
+            <!-- BAY 1: Professional Experience (4 Records Packed Tight) -->
+            <div class="shelf-bay">
+                <div>
+                    <div class="bay-header">Professional Experience</div>
+                    <div class="records-track">
+                        
+                        <div class="record-slot" onclick="selectRecord(this, 'exp1')">
+                            <div class="sleeve dark">
+                                <div class="sleeve-title">BHP</div>
+                                <div class="sleeve-subtitle">Assessment</div>
+                                <div class="sleeve-year">2026</div>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Exp 2 -->
-                    <div class="record-slot" onclick="selectRecord(this, 'exp2')">
-                        <div class="sleeve slate">
-                            <div class="sleeve-title">Telstra</div>
-                            <div class="sleeve-subtitle">Video Interview</div>
-                            <div class="sleeve-year">2026</div>
+                        <div class="record-slot" onclick="selectRecord(this, 'exp2')">
+                            <div class="sleeve slate">
+                                <div class="sleeve-title">Telstra</div>
+                                <div class="sleeve-subtitle">Interview</div>
+                                <div class="sleeve-year">2026</div>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Exp 3 -->
-                    <div class="record-slot" onclick="selectRecord(this, 'exp3')">
-                        <div class="sleeve light">
-                            <div class="sleeve-title" style="color:#0f172a;">Kmart & Woolworths</div>
-                            <div class="sleeve-subtitle" style="color:#475569;">Sapia.ai Chat</div>
-                            <div class="sleeve-year" style="color:#64748b;">2026</div>
+                        <div class="record-slot" onclick="selectRecord(this, 'exp3')">
+                            <div class="sleeve light">
+                                <div class="sleeve-title" style="color:#0f172a;">Kmart/Woolies</div>
+                                <div class="sleeve-subtitle" style="color:#475569;">Sapia.ai</div>
+                                <div class="sleeve-year" style="color:#64748b;">2026</div>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Exp 4 -->
-                    <div class="record-slot" onclick="selectRecord(this, 'exp4')">
-                        <div class="sleeve accent">
-                            <div class="sleeve-title">First Aus Offer</div>
-                            <div class="sleeve-subtitle">Job Mentoring</div>
-                            <div class="sleeve-year">2026</div>
+                        <div class="record-slot" onclick="selectRecord(this, 'exp4')">
+                            <div class="sleeve accent">
+                                <div class="sleeve-title">First Aus</div>
+                                <div class="sleeve-subtitle">Mentoring</div>
+                                <div class="sleeve-year">2026</div>
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
                 <div class="wood-plank"></div>
             </div>
 
-            <!-- TIER 2: Featured Projects (3 Records) -->
-            <div class="shelf-tier">
-                <div class="tier-header">Featured Projects</div>
-                <div class="records-track">
-                    
-                    <!-- Proj 1 -->
-                    <div class="record-slot" onclick="selectRecord(this, 'proj1')">
-                        <div class="sleeve warm">
-                            <div class="sleeve-title">Cricket Stats</div>
-                            <div class="sleeve-subtitle">Data Analytics</div>
-                            <div class="sleeve-year">Python & SQL</div>
-                        </div>
-                    </div>
+            <!-- Center Metal Pipe Column Divider -->
+            <div class="center-pipe-column"></div>
 
-                    <!-- Proj 2 -->
-                    <div class="record-slot" onclick="selectRecord(this, 'proj2')">
-                        <div class="sleeve charcoal">
-                            <div class="sleeve-title">Web App</div>
-                            <div class="sleeve-subtitle">SQLAlchemy</div>
-                            <div class="sleeve-year">Backend Architecture</div>
+            <!-- BAY 2: Featured Projects (3 Records Packed Tight) -->
+            <div class="shelf-bay">
+                <div>
+                    <div class="bay-header">Featured Projects</div>
+                    <div class="records-track">
+                        
+                        <div class="record-slot" onclick="selectRecord(this, 'proj1')">
+                            <div class="sleeve warm">
+                                <div class="sleeve-title">Cricket Stats</div>
+                                <div class="sleeve-subtitle">Analytics</div>
+                                <div class="sleeve-year">Python/SQL</div>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Proj 3 -->
-                    <div class="record-slot" onclick="selectRecord(this, 'proj3')">
-                        <div class="sleeve light">
-                            <div class="sleeve-title" style="color:#0f172a;">Pipelines</div>
-                            <div class="sleeve-subtitle" style="color:#475569;">Automation</div>
-                            <div class="sleeve-year" style="color:#64748b;">Data Cleaning</div>
+                        <div class="record-slot" onclick="selectRecord(this, 'proj2')">
+                            <div class="sleeve charcoal">
+                                <div class="sleeve-title">Web App</div>
+                                <div class="sleeve-subtitle">SQLAlchemy</div>
+                                <div class="sleeve-year">Backend</div>
+                            </div>
                         </div>
-                    </div>
 
+                        <div class="record-slot" onclick="selectRecord(this, 'proj3')">
+                            <div class="sleeve light">
+                                <div class="sleeve-title" style="color:#0f172a;">Pipelines</div>
+                                <div class="sleeve-subtitle" style="color:#475569;">Automation</div>
+                                <div class="sleeve-year" style="color:#64748b;">Cleaning</div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
                 <div class="wood-plank"></div>
             </div>
@@ -369,7 +377,7 @@
         </div>
     </div>
 
-    <!-- Detail Modal ("Playing") -->
+    <!-- Detail Modal -->
     <div id="detailModal" class="modal" onclick="closeModalOutside(event)">
         <div class="modal-card">
             <button class="close-modal" onclick="closeModal()">&times;</button>
